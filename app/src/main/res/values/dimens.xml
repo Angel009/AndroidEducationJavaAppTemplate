@@ -9,9 +9,9 @@
 
 
     <dimen name="headerTextSize">25sp</dimen>
-    <dimen name="headerMoreTextSize">18sp</dimen>
+    <dimen name="headerMoreTextSize">14sp</dimen>
     <dimen name="card_margin">5dp</dimen>
-    <dimen name="frutorial_title">15sp</dimen>
+    <dimen name="text_title_15">15sp</dimen>
     <dimen name="card_maincourse_elevation">2dp</dimen>
     <dimen name="card_image_elevation">4dp</dimen>
     <dimen name="card_itemcourse_elevation">2dp</dimen>
@@ -20,12 +20,13 @@
 
     <!--    Dashboard-->
     <dimen name="normalPadding">20dp</dimen>
+    <dimen name="normalPaddingDouble">30dp</dimen>
     <dimen name="staggedmarginbottom">21dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="horizontal_dashboard">32dp</dimen>
     <dimen name="img_card_height">120dp</dimen>
     <dimen name="drawable_left">5dp</dimen>
-    <dimen name="card_course_dashboard_elevation">.2dp</dimen>
+    <dimen name="card_course_dashboard_elevation">.1dp</dimen>
 
     <dimen name="vertical_search">10dp</dimen>
     <dimen name="card_radius">14dp</dimen>

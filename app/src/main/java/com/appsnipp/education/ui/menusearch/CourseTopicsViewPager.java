@@ -4,16 +4,15 @@
 
 package com.appsnipp.education.ui.menusearch;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.ItemPagerCardBinding;
-import com.appsnipp.education.ui.listeners.MatchCourseClickListener;
+import com.appsnipp.education.ui.base.BaseViewHolder;
+import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.MatchCourse;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -21,72 +20,74 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import java.util.List;
 
 
-public class CourseTopicsViewPager extends RecyclerView.Adapter<CourseTopicsViewPager.ViewHolder> {
-    private LayoutInflater mInflater;
+public class CourseTopicsViewPager
+        extends RecyclerView.Adapter<BaseViewHolder<MatchCourse>> {
     private List<MatchCourse> mCoursesList;
-    private Context mContext;
-    private MatchCourseClickListener matchCourseClickListener;
+    private final ItemClickListener<MatchCourse> matchCourseClickListener;
 
-    public CourseTopicsViewPager(List<MatchCourse> mCoursesList, Context context, MatchCourseClickListener listener) {
-        mContext = context;
-        mInflater = LayoutInflater.from(mContext);
-        this.mCoursesList = mCoursesList;
+    public CourseTopicsViewPager(ItemClickListener<MatchCourse> listener) {
         this.matchCourseClickListener = listener;
+    }
+
+    public void setListDataItems(List<MatchCourse> listItems) {
+        this.mCoursesList = listItems;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = mInflater.inflate(R.layout.item_pager_card, parent, false);
-//        return new ViewHolder(view);
+    public BaseViewHolder<MatchCourse> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-//        View v = inflater.inflate(R.layout.item_shop_card, parent, false);
-//        return new ViewHolder(v);
-
         ItemPagerCardBinding itemPagerCardBinding = ItemPagerCardBinding.inflate(inflater, parent, false);
         return new ViewHolder(itemPagerCardBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setBind(mCoursesList.get(position));
+    public void onBindViewHolder(@NonNull BaseViewHolder<MatchCourse> holder, int position) {
+        MatchCourse item = mCoursesList.get(position);
+        holder.bind(item);
+        ViewHolder viewHolder = (ViewHolder) holder;
 
-        holder.binding.cardViewCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                matchCourseClickListener.onScrollPagerItemClick(mCoursesList.get(position), holder.binding.image);
-            }
+        viewHolder.getItemCardBinding().cardViewCourse.setOnClickListener(v -> {
+            matchCourseClickListener.onItemClick(item,
+                    viewHolder.getItemCardBinding().image);
         });
-    }
 
+//        holder.setBind(mCoursesList.get(position));
+//
+//        holder.binding.cardViewCourse.setOnClickListener(
+//                v -> matchCourseClickListener.onScrollPagerItemClick(
+//                        mCoursesList.get(holder.getAdapterPosition()),
+//                        holder.binding.image));
+    }
     @Override
     public int getItemCount() {
         return mCoursesList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
 
+    public static class ViewHolder extends BaseViewHolder<MatchCourse> {
 
-        ItemPagerCardBinding binding;
+        ItemPagerCardBinding itemCardBinding;
 
-        ViewHolder(@NonNull ItemPagerCardBinding binding) {
+        public ViewHolder(@NonNull ItemPagerCardBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
+            this.itemCardBinding = binding;
         }
 
-        void setBind(MatchCourse matchCourse) {
+        public ItemPagerCardBinding getItemCardBinding() {
+            return itemCardBinding;
+        }
 
-            binding.tvTitulo.setText(matchCourse.getName());
-            binding.tvCantidadCursos.setText(matchCourse.getNumberOfCourses());
+        @Override
+        public void bind(MatchCourse matchCourse) {
+            itemCardBinding.tvTitulo.setText(matchCourse.getName());
+            itemCardBinding.tvCantidadCursos.setText(matchCourse.getNumberOfCourses());
 
             Glide.with(itemView.getContext())
                     .load(matchCourse.getImageResource())
-//                .transform(new CenterCrop(), new RoundedCorners(24))
-//                .transform(new RoundedCorners(40))
                     .transform(new CenterCrop())
-                    .into(binding.image);
+                    .into(itemCardBinding.image);
         }
-
-
     }
 }

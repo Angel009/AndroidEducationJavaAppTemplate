@@ -1,12 +1,9 @@
 /*
- * Copyright (c) 2020. rogergcc
+ * Copyright (c) 2024. rogergcc
  */
 
-package com.appsnipp.education.ui.helpers;
+package com.appsnipp.education.ui.utils.helpers;
 
-/**
- * Created by kapil on 20/01/17.
- */
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -27,17 +24,17 @@ public class DarkModePrefManager {
 
     public DarkModePrefManager(Context context) {
         this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        pref = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
     }
 
     public void setDarkMode(boolean isFirstTime) {
         editor.putBoolean(IS_NIGHT_MODE, isFirstTime);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isNightMode() {
-        return pref.getBoolean(IS_NIGHT_MODE, true);
+        return pref.getBoolean(IS_NIGHT_MODE, false);
     }
 
 }

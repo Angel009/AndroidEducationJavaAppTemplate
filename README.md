@@ -20,11 +20,6 @@ This module use the following libraries:
 - [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
 - [Google Material Design](https://material.io/develop/android/docs/getting-started)
 
-
-- **Images**
-	- Glide 
-	- Circleimageview
-
   
  ## 📸 Screenshots
 
@@ -42,4 +37,10 @@ This module use the following libraries:
     <td><img src="screenshots/screenshot-1597998427057.jpg" width=270 height=auto></td>
   </tr>
  </table>
+
+## Video Demo
+
+
+https://github.com/rogergcc/AndroidEducationApp/assets/18008332/8dbedab4-fa1e-4257-82ec-aef900fc8a04
+
 
